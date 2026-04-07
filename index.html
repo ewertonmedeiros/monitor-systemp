@@ -429,28 +429,33 @@
             }
             
             try {
-                const fetchPromises = Object.entries(malhasData).map(async ([region, cities]) => {
-                    const lats = cities.map(c => c.lat).join(',');
-                    const lons = cities.map(c => c.lon).join(',');
-                    
-                    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lats}&longitude=${lons}&hourly=temperature_2m,weathercode&timezone=America/Sao_Paulo&forecast_days=3`;
-                    
-                    const response = await fetch(url);
-                    if (!response.ok) throw new Error(`Falha HTTP: ${response.status}`);
-                    
-                    const data = await response.json();
-                    if (data.error) throw new Error(data.reason || "Erro da API.");
-
-                    const isArray = Array.isArray(data);
-
-                    cities.forEach((city, index) => {
-                        const targetData = isArray ? data[index] : data;
-                        city.hourlyData = targetData.hourly.temperature_2m;
-                        city.weatherCode = targetData.hourly.weathercode;
-                    });
+                // 1. Criamos uma lista única com todas as cidades do sistema
+                let todasCidades = [];
+                Object.values(malhasData).forEach(cities => {
+                    todasCidades.push(...cities);
                 });
 
-                await Promise.all(fetchPromises);
+                // 2. Extraímos todas as latitudes e longitudes
+                const lats = todasCidades.map(c => c.lat).join(',');
+                const lons = todasCidades.map(c => c.lon).join(',');
+                
+                // 3. Fazemos UMA ÚNICA requisição consolidada (evita bloqueio por SPAM da API)
+                const url = `https://api.open-meteo.com/v1/forecast?latitude=${lats}&longitude=${lons}&hourly=temperature_2m,weathercode&timezone=America/Sao_Paulo&forecast_days=3`;
+                
+                const response = await fetch(url);
+                if (!response.ok) throw new Error(`Falha HTTP: ${response.status}`);
+                
+                const data = await response.json();
+                if (data.error) throw new Error(data.reason || "Erro da API.");
+
+                const isArray = Array.isArray(data);
+
+                // 4. Distribuímos os dados recebidos de volta para os objetos de cada malha
+                todasCidades.forEach((city, index) => {
+                    const targetData = isArray ? data[index] : data;
+                    city.hourlyData = targetData.hourly.temperature_2m;
+                    city.weatherCode = targetData.hourly.weathercode;
+                });
                 
                 loadingIndicator.style.display = 'none';
                 timeSlider.disabled = false;
