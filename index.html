@@ -26,9 +26,6 @@
 
             --cor-alerta-tempestade: #E65100;
             --fundo-alerta-tempestade: #FFF3E0;
-
-            --cor-alerta-vento: #6A1B9A; /* Roxo para Vendaval */
-            --fundo-alerta-vento: #F3E5F5;
             
             --cor-slider: #cbd5e1;
         }
@@ -135,12 +132,6 @@
         .alert-badge.cold { color: #01579B; background-color: #B3E5FC; }
         @keyframes pulse-cold { 0% { box-shadow: 0 0 0 0 rgba(2, 136, 209, 0.6); } 70% { box-shadow: 0 0 0 15px rgba(2, 136, 209, 0); } 100% { box-shadow: 0 0 0 0 rgba(2, 136, 209, 0); } }
 
-        .card.wind { border-top-color: var(--cor-alerta-vento); background-color: var(--fundo-alerta-vento); animation: pulse-wind 1.5s infinite; }
-        .card.wind .temperature, .card.wind .city-name { color: var(--cor-alerta-vento); }
-        .card.wind .min-max { color: #4a148c; }
-        .alert-badge.wind { color: #FFF; background-color: var(--cor-alerta-vento); }
-        @keyframes pulse-wind { 0% { box-shadow: 0 0 0 0 rgba(106, 27, 154, 0.6); } 70% { box-shadow: 0 0 0 15px rgba(106, 27, 154, 0); } 100% { box-shadow: 0 0 0 0 rgba(106, 27, 154, 0); } }
-
         /* Modal / Popup do Gráfico */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -246,7 +237,7 @@
         <header>
             <div class="header-content">
                 <div class="header-text">
-                    <h1>Monitor Metereológico</h1>
+                    <h1>Monitor Temperaturas Systemp</h1>
                     <h2>CCO | Malha Sul</h2>
                 </div>
                 <button class="hamburger" id="hamburger-btn" aria-label="Menu">
@@ -321,47 +312,47 @@
     <script>
         const malhasData = {
             "Rio Grande": [
-                { name: "Cruz Alta", lat: -28.63, lon: -53.60, hourlyData: [], weatherCode: [], hourlyWindGusts: [] },
-                { name: "Tupaciretã", lat: -29.08, lon: -53.83, hourlyData: [], weatherCode: [], hourlyWindGusts: [] },
-                { name: "Santa Maria", lat: -29.68, lon: -53.80, hourlyData: [], weatherCode: [], hourlyWindGusts: [] },
-                { name: "Dilermando", lat: -29.51, lon: -54.21, hourlyData: [], weatherCode: [], hourlyWindGusts: [] },
-                { name: "Cacequi", lat: -29.88, lon: -54.82, hourlyData: [], weatherCode: [], hourlyWindGusts: [] },
-                { name: "São Gabriel", lat: -30.33, lon: -54.32, hourlyData: [], weatherCode: [], hourlyWindGusts: [] },
-                { name: "Bagé", lat: -31.33, lon: -54.10, hourlyData: [], weatherCode: [], hourlyWindGusts: [] },
-                { name: "Pedro Osório", lat: -31.86, lon: -52.82, hourlyData: [], weatherCode: [], hourlyWindGusts: [] },
-                { name: "Pelotas", lat: -31.77, lon: -52.33, hourlyData: [], weatherCode: [], hourlyWindGusts: [] },
-                { name: "Rio Grande", lat: -32.03, lon: -52.09, hourlyData: [], weatherCode: [], hourlyWindGusts: [] }
+                { name: "Cruz Alta", lat: -28.63, lon: -53.60, hourlyData: [], weatherCode: [] },
+                { name: "Tupaciretã", lat: -29.08, lon: -53.83, hourlyData: [], weatherCode: [] },
+                { name: "Santa Maria", lat: -29.68, lon: -53.80, hourlyData: [], weatherCode: [] },
+                { name: "Dilermando", lat: -29.51, lon: -54.21, hourlyData: [], weatherCode: [] },
+                { name: "Cacequi", lat: -29.88, lon: -54.82, hourlyData: [], weatherCode: [] },
+                { name: "São Gabriel", lat: -30.33, lon: -54.32, hourlyData: [], weatherCode: [] },
+                { name: "Bagé", lat: -31.33, lon: -54.10, hourlyData: [], weatherCode: [] },
+                { name: "Pedro Osório", lat: -31.86, lon: -52.82, hourlyData: [], weatherCode: [] },
+                { name: "Pelotas", lat: -31.77, lon: -52.33, hourlyData: [], weatherCode: [] },
+                { name: "Rio Grande", lat: -32.03, lon: -52.09, hourlyData: [], weatherCode: [] }
             ],
             "São Francisco": [
-                { name: "Rio Negro", lat: -26.10, lon: -49.79, hourlyData: [], weatherCode: [], hourlyWindGusts: [] },
-                { name: "Corupá", lat: -26.42, lon: -49.24, hourlyData: [], weatherCode: [], hourlyWindGusts: [] },
-                { name: "Joinville", lat: -26.30, lon: -48.84, hourlyData: [], weatherCode: [], hourlyWindGusts: [] },
-                { name: "S. Francisco", lat: -26.24, lon: -48.63, hourlyData: [], weatherCode: [], hourlyWindGusts: [] }
+                { name: "Rio Negro", lat: -26.10, lon: -49.79, hourlyData: [], weatherCode: [] },
+                { name: "Corupá", lat: -26.42, lon: -49.24, hourlyData: [], weatherCode: [] },
+                { name: "Joinville", lat: -26.30, lon: -48.84, hourlyData: [], weatherCode: [] },
+                { name: "S. Francisco", lat: -26.24, lon: -48.63, hourlyData: [], weatherCode: [] }
             ],
             "Oeste PR": [
-                { name: "Ponta Grossa", lat: -25.09, lon: -50.16, hourlyData: [], weatherCode: [], hourlyWindGusts: [] },
-                { name: "Irati", lat: -25.46, lon: -50.64, hourlyData: [], weatherCode: [], hourlyWindGusts: [] },
-                { name: "Inácio Martins", lat: -25.57, lon: -51.07, hourlyData: [], weatherCode: [], hourlyWindGusts: [] },
-                { name: "Guarapuava", lat: -25.39, lon: -51.46, hourlyData: [], weatherCode: [], hourlyWindGusts: [] },
-                { name: "Laranjeiras", lat: -25.40, lon: -52.41, hourlyData: [], weatherCode: [], hourlyWindGusts: [] },
-                { name: "Cascavel", lat: -24.95, lon: -53.45, hourlyData: [], weatherCode: [], hourlyWindGusts: [] }
+                { name: "Ponta Grossa", lat: -25.09, lon: -50.16, hourlyData: [], weatherCode: [] },
+                { name: "Irati", lat: -25.46, lon: -50.64, hourlyData: [], weatherCode: [] },
+                { name: "Inácio Martins", lat: -25.57, lon: -51.07, hourlyData: [], weatherCode: [] },
+                { name: "Guarapuava", lat: -25.39, lon: -51.46, hourlyData: [], weatherCode: [] },
+                { name: "Laranjeiras", lat: -25.40, lon: -52.41, hourlyData: [], weatherCode: [] },
+                { name: "Cascavel", lat: -24.95, lon: -53.45, hourlyData: [], weatherCode: [] }
             ],
             "Central": [
-                { name: "Ponta Grossa", lat: -25.09, lon: -50.16, hourlyData: [], weatherCode: [], hourlyWindGusts: [] },
-                { name: "Ipiranga", lat: -25.01, lon: -50.58, hourlyData: [], weatherCode: [], hourlyWindGusts: [] },
-                { name: "Reserva", lat: -24.65, lon: -50.85, hourlyData: [], weatherCode: [], hourlyWindGusts: [] },
-                { name: "Mauá do Sul", lat: -23.90, lon: -51.22, hourlyData: [], weatherCode: [], hourlyWindGusts: [] },
-                { name: "Apucarana", lat: -23.55, lon: -51.45, hourlyData: [], weatherCode: [], hourlyWindGusts: [] },
-                { name: "Maringá", lat: -23.42, lon: -51.93, hourlyData: [], weatherCode: [], hourlyWindGusts: [] },
-                { name: "Londrina", lat: -23.31, lon: -51.16, hourlyData: [], weatherCode: [], hourlyWindGusts: [] }
+                { name: "Ponta Grossa", lat: -25.09, lon: -50.16, hourlyData: [], weatherCode: [] },
+                { name: "Ipiranga", lat: -25.01, lon: -50.58, hourlyData: [], weatherCode: [] },
+                { name: "Reserva", lat: -24.65, lon: -50.85, hourlyData: [], weatherCode: [] },
+                { name: "Mauá do Sul", lat: -23.90, lon: -51.22, hourlyData: [], weatherCode: [] },
+                { name: "Apucarana", lat: -23.55, lon: -51.45, hourlyData: [], weatherCode: [] },
+                { name: "Maringá", lat: -23.42, lon: -51.93, hourlyData: [], weatherCode: [] },
+                { name: "Londrina", lat: -23.31, lon: -51.16, hourlyData: [], weatherCode: [] }
             ],
             "CTC": [
-                { name: "Paranaguá", lat: -25.52, lon: -48.50, hourlyData: [], weatherCode: [], hourlyWindGusts: [] },
-                { name: "Morretes", lat: -25.47, lon: -48.83, hourlyData: [], weatherCode: [], hourlyWindGusts: [] },
-                { name: "Piraquara", lat: -25.44, lon: -49.06, hourlyData: [], weatherCode: [], hourlyWindGusts: [] },
-                { name: "Curitiba", lat: -25.42, lon: -49.27, hourlyData: [], weatherCode: [], hourlyWindGusts: [] },
-                { name: "Balsa Nova", lat: -25.58, lon: -49.63, hourlyData: [], weatherCode: [], hourlyWindGusts: [] },
-                { name: "Ponta Grossa", lat: -25.09, lon: -50.16, hourlyData: [], weatherCode: [], hourlyWindGusts: [] }
+                { name: "Paranaguá", lat: -25.52, lon: -48.50, hourlyData: [], weatherCode: [] },
+                { name: "Morretes", lat: -25.47, lon: -48.83, hourlyData: [], weatherCode: [] },
+                { name: "Piraquara", lat: -25.44, lon: -49.06, hourlyData: [], weatherCode: [] },
+                { name: "Curitiba", lat: -25.42, lon: -49.27, hourlyData: [], weatherCode: [] },
+                { name: "Balsa Nova", lat: -25.58, lon: -49.63, hourlyData: [], weatherCode: [] },
+                { name: "Ponta Grossa", lat: -25.09, lon: -50.16, hourlyData: [], weatherCode: [] }
             ]
         };
 
@@ -438,34 +429,28 @@
             }
             
             try {
-                // 1. Criamos uma lista única com todas as cidades do sistema
-                let todasCidades = [];
-                Object.values(malhasData).forEach(cities => {
-                    todasCidades.push(...cities);
+                const fetchPromises = Object.entries(malhasData).map(async ([region, cities]) => {
+                    const lats = cities.map(c => c.lat).join(',');
+                    const lons = cities.map(c => c.lon).join(',');
+                    
+                    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lats}&longitude=${lons}&hourly=temperature_2m,weathercode&timezone=America/Sao_Paulo&forecast_days=3`;
+                    
+                    const response = await fetch(url);
+                    if (!response.ok) throw new Error(`Falha HTTP: ${response.status}`);
+                    
+                    const data = await response.json();
+                    if (data.error) throw new Error(data.reason || "Erro da API.");
+
+                    const isArray = Array.isArray(data);
+
+                    cities.forEach((city, index) => {
+                        const targetData = isArray ? data[index] : data;
+                        city.hourlyData = targetData.hourly.temperature_2m;
+                        city.weatherCode = targetData.hourly.weathercode;
+                    });
                 });
 
-                // 2. Extraímos todas as latitudes e longitudes
-                const lats = todasCidades.map(c => c.lat).join(',');
-                const lons = todasCidades.map(c => c.lon).join(',');
-                
-                // 3. Fazemos UMA ÚNICA requisição consolidada (evita bloqueio por SPAM da API) incluindo Vento
-                const url = `https://api.open-meteo.com/v1/forecast?latitude=${lats}&longitude=${lons}&hourly=temperature_2m,weathercode,wind_gusts_10m&timezone=America/Sao_Paulo&forecast_days=3`;
-                
-                const response = await fetch(url);
-                if (!response.ok) throw new Error(`Falha HTTP: ${response.status}`);
-                
-                const data = await response.json();
-                if (data.error) throw new Error(data.reason || "Erro da API.");
-
-                const isArray = Array.isArray(data);
-
-                // 4. Distribuímos os dados recebidos de volta para os objetos de cada malha
-                todasCidades.forEach((city, index) => {
-                    const targetData = isArray ? data[index] : data;
-                    city.hourlyData = targetData.hourly.temperature_2m;
-                    city.weatherCode = targetData.hourly.weathercode;
-                    city.hourlyWindGusts = targetData.hourly.wind_gusts_10m;
-                });
+                await Promise.all(fetchPromises);
                 
                 loadingIndicator.style.display = 'none';
                 timeSlider.disabled = false;
@@ -532,6 +517,9 @@
             cardsContainer.innerHTML = '';
             const startOfDayIndex = currentDayOffset * 24;
 
+            // ==========================================
+            // LOGICA DA NOVA TELA INICIAL (MONITOR DE ALERTAS)
+            // ==========================================
             if (currentTab === "Alertas") {
                 timeContainer.style.display = 'none'; 
                 const cidadesRenderizadas = new Set();
@@ -544,19 +532,14 @@
 
                         let isHeatAlert = false;
                         let isColdAlert = false;
-                        let isWindAlert = false; 
-                        
                         let peakHeat = -999;
                         let peakCold = 999;
-                        let peakWind = -1; 
                         
                         let heatHours = [];
                         let coldHours = [];
-                        let windHours = []; 
 
                         for (let h = 0; h < 24; h++) {
                             let temp = Math.round(city.hourlyData[startOfDayIndex + h]);
-                            let gust = Math.round(city.hourlyWindGusts[startOfDayIndex + h]); 
                             
                             if (temp > 29) {
                                 heatHours.push(h);
@@ -564,21 +547,14 @@
                                 isHeatAlert = true; 
                             }
                             
-                            if (temp < 5) {
+                            if (temp <= 6) {
                                 coldHours.push(h);
                                 if (temp < peakCold) peakCold = temp;
                                 isColdAlert = true; 
                             }
-
-                            // Alerta se a rajada for maior que 60 km/h
-                            if (gust > 60) {
-                                windHours.push(h);
-                                if (gust > peakWind) peakWind = gust;
-                                isWindAlert = true;
-                            }
                         }
 
-                        if (isHeatAlert || isColdAlert || isWindAlert) {
+                        if (isHeatAlert || isColdAlert) {
                             cidadesRenderizadas.add(city.name);
                             temAlerta = true;
 
@@ -588,29 +564,34 @@
 
                             let cardClass = 'card';
                             let badgesHTML = '';
-                            
-                            // Define qual temperatura de destaque será mostrada no card
-                            let displayTemp = `${dailyMax}<span class="unit">ºC</span>`; 
-                            if (isHeatAlert) displayTemp = `${peakHeat}<span class="unit">ºC</span>`;
-                            else if (isColdAlert) displayTemp = `${peakCold}<span class="unit">ºC</span>`;
+                            let displayTemp = '';
 
-                            // Formatadores de horário
-                            let heatPeriodText = heatHours.length > 1 ? `${heatHours[0]}h - ${heatHours[heatHours.length - 1]}h` : `${heatHours[0]}h`;
-                            let coldPeriodText = coldHours.length > 1 ? `${coldHours[0]}h - ${coldHours[coldHours.length - 1]}h` : `${coldHours[0]}h`;
-                            let windPeriodText = windHours.length > 1 ? `${windHours[0]}h - ${windHours[windHours.length - 1]}h` : `${windHours[0]}h`;
+                            let heatPeriodText = heatHours.length > 1 
+                                ? `${heatHours[0]}h - ${heatHours[heatHours.length - 1]}h` 
+                                : `${heatHours[0]}h`;
+                                
+                            let coldPeriodText = coldHours.length > 1
+                                ? `${coldHours[0]}h - ${coldHours[coldHours.length - 1]}h`
+                                : `${coldHours[0]}h`;
 
-                            // Empilha os badges de alerta (se ocorrerem simultaneamente, todos aparecem)
-                            if (isHeatAlert) {
+                            // Estrutura compacta para quando houver MÚLTIPLOS alertas na mesma cidade
+                            if (isHeatAlert && isColdAlert) {
                                 cardClass += ' hot';
-                                badgesHTML += `<div class="alert-badge hot">⚠️ Calor > 29ºC das ${heatPeriodText}</div>`;
-                            }
-                            if (isColdAlert) {
+                                displayTemp = `${peakHeat}<span class="unit">ºC</span>`; 
+                                badgesHTML += `
+                                    <div style="display:flex; gap:5px; width:100%;">
+                                        <div class="alert-badge hot" style="flex:1; font-size:0.7rem; padding:4px;">⚠️ Calor<br>${heatPeriodText}</div>
+                                        <div class="alert-badge cold" style="flex:1; font-size:0.7rem; padding:4px;">❄️ Geada<br>${coldPeriodText}</div>
+                                    </div>
+                                `;
+                            } else if (isHeatAlert) {
+                                cardClass += ' hot';
+                                displayTemp = `${peakHeat}<span class="unit">ºC</span>`;
+                                badgesHTML += `<div class="alert-badge hot">⚠️ Risco de Interdição<br>Calor > 29ºC das ${heatPeriodText}</div>`;
+                            } else if (isColdAlert) {
                                 cardClass += ' cold';
-                                badgesHTML += `<div class="alert-badge cold">❄️ Geada < 5ºC das ${coldPeriodText}</div>`;
-                            }
-                            if (isWindAlert) {
-                                cardClass += ' wind'; // O vento sobrescreve a cor principal do card se também houver calor/frio
-                                badgesHTML += `<div class="alert-badge wind">💨 Vendaval: Rajadas ${peakWind}km/h das ${windPeriodText}</div>`;
+                                displayTemp = `${peakCold}<span class="unit">ºC</span>`;
+                                badgesHTML += `<div class="alert-badge cold">❄️ Alerta de Geada<br>Frio ≤ 6ºC das ${coldPeriodText}</div>`;
                             }
 
                             const card = document.createElement('div');
@@ -636,13 +617,15 @@
                     cardsContainer.innerHTML = `
                         <div style="grid-column: 1 / -1; text-align: center; padding: 3rem 1rem; background: var(--cor-branco); border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-top: 5px solid var(--cor-secundaria);">
                             <h3 style="color: var(--cor-secundaria); font-size: 1.5rem; margin-bottom: 0.5rem;">✅ Condições Operacionais Normais</h3>
-                            <p style="color: #666;">Não há previsão de riscos térmicos críticos ou rajadas de vento acima de 60km/h para este dia.</p>
+                            <p style="color: #666;">Não há previsão de riscos térmicos críticos (Calor > 29ºC ou Geada ≤ 6ºC) nas malhas para este dia.</p>
                         </div>
                     `;
                 }
 
             } else {
+                // ==========================================
                 // LÓGICA PADRÃO (VISUALIZANDO MALHA ESPECÍFICA)
+                // ==========================================
                 timeContainer.style.display = 'block'; 
                 const dataIndex = startOfDayIndex + currentHour;
                 const cities = malhasData[currentTab];
@@ -650,14 +633,12 @@
                 cities.forEach(city => {
                     let temp = 0;
                     let wCode = 0;
-                    let gust = 0; 
                     let dailyMin = 0;
                     let dailyMax = 0;
                     
                     if(city.hourlyData && city.hourlyData.length > 0) {
                         temp = Math.round(city.hourlyData[dataIndex]);
                         wCode = city.weatherCode[dataIndex];
-                        gust = Math.round(city.hourlyWindGusts[dataIndex]); 
                         
                         const dailyData = city.hourlyData.slice(startOfDayIndex, startOfDayIndex + 24);
                         dailyMin = Math.round(Math.min(...dailyData));
@@ -668,22 +649,16 @@
                     
                     const isStorm = [65, 82, 95, 96, 99].includes(wCode);
                     const isHot = temp > 29;
-                    const isCold = temp < 5;
-                    const isWind = gust > 60; 
+                    const isCold = temp <= 6;
 
                     let cardClass = 'card';
                     let badgesHTML = '';
 
-                    // Adiciona os badges pertinentes para a hora atual
                     if (isStorm) badgesHTML += `<div class="alert-badge storm">🌩️ Alerta: Chuva Severa</div>`;
-                    if (isWind) badgesHTML += `<div class="alert-badge wind">💨 Rajadas: ${gust}km/h</div>`;
-                    
                     if (isHot) badgesHTML += `<div class="alert-badge hot">⚠️ Risco de Interdição</div>`;
                     else if (isCold) badgesHTML += `<div class="alert-badge cold">❄️ Alerta: Frio Extremo</div>`;
 
-                    // Define a cor de fundo do card (prioridades visuais)
                     if (isStorm) cardClass += ' storm';
-                    else if (isWind) cardClass += ' wind';
                     else if (isHot) cardClass += ' hot';
                     else if (isCold) cardClass += ' cold';
 
@@ -742,7 +717,7 @@
                     label: { display: true, content: '⚠️ Calor (Risco de Dilatação)', position: 'start', color: 'rgba(211, 47, 47, 0.7)', font: { size: 11, weight: 'bold' } }
                 },
                 faixaFrio: {
-                    type: 'box', yMin: -50, yMax: 5, backgroundColor: 'rgba(2, 136, 209, 0.12)', borderWidth: 0,
+                    type: 'box', yMin: -50, yMax: 6, backgroundColor: 'rgba(2, 136, 209, 0.12)', borderWidth: 0,
                     label: { display: true, content: '❄️ Frio Extremo / Geada', position: 'start', yAdjust: -15, color: 'rgba(2, 136, 209, 0.7)', font: { size: 11, weight: 'bold' } }
                 }
             };
